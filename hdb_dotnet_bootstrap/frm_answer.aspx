@@ -76,7 +76,7 @@
                             <section id="concerns"></section>
                             <div class="text-left"><p class="lead"><b>GROUND CONCERNS</b></p></div>
                             
-                            <asp:TextBox ID="txt_concerns" runat="server" class="form-control" Height="250px" TextMode="MultiLine" ReadOnly="true" ForeColor="Black"></asp:TextBox>
+                            <asp:TextBox ID="txt_concerns" runat="server" class="form-control" Height="100px" TextMode="MultiLine" ReadOnly="true" ForeColor="Black"></asp:TextBox>
  
                             <br/><div class="text-left"><p class="lead">The concern is about</p></div>
                             <asp:TextBox ID="txt_answer1" runat="server" class="form-control" ReadOnly="true" ForeColor="Black"></asp:TextBox>
@@ -89,6 +89,9 @@
                             
                             <br/><div class="text-left"><p class="lead">Proposed Response</p></div>
                             <asp:TextBox ID="txt_answer4" runat="server" class="form-control" ReadOnly="true" ForeColor="Black"></asp:TextBox>
+
+                            <br/><div class="text-left"><p class="lead">Relevant Cases</p></div>
+                            <asp:TextBox ID="txt_answer5" runat="server" class="form-control" ReadOnly="true" ForeColor="Black" TextMode="MultiLine" Height="100px"></asp:TextBox>
 
                             <section id="analytics"></section>
                             <br/>

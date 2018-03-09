@@ -67,6 +67,15 @@ namespace hdb_dotnet_bootstrap {
         protected global::System.Web.UI.WebControls.TextBox txt_answer4;
         
         /// <summary>
+        /// txt_answer5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_answer5;
+        
+        /// <summary>
         /// link_qlik_full_view control.
         /// </summary>
         /// <remarks>

@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using Google.Apis.Customsearch.v1;
 using Google.Apis.Customsearch.v1.Data;
 using Google.Apis.Services;
-
+using Newtonsoft.Json;
 
 namespace hdb_dotnet_bootstrap
 {
@@ -31,6 +31,7 @@ namespace hdb_dotnet_bootstrap
                     this.txt_answer2.Text = cr.get_y_hat1();
                     this.txt_answer3.Text = cr.get_y_hat2();
                     this.txt_answer4.Text = cr.get_y_hat3();
+                    this.txt_answer5.Text = cr.get_y_hat6();
 
                 }
                 catch (Exception err)
@@ -91,6 +92,20 @@ namespace hdb_dotnet_bootstrap
 
         }
 
+        private void clean_result_new_2(string result)
+        {
+            // www.newtonsoft.com/json/help/html/DeserializeObject.htm
+
+            cls_yhat cy = JsonConvert.DeserializeObject<cls_yhat>(result);
+
+            System.Diagnostics.Debug.WriteLine("cy.y_hat:" + cy.y_hat.ToString());
+            System.Diagnostics.Debug.WriteLine(cy.y_hat1);
+            System.Diagnostics.Debug.WriteLine(cy.y_hat2);
+            System.Diagnostics.Debug.WriteLine(cy.y_hat3);
+            System.Diagnostics.Debug.WriteLine(cy.y_hat4);
+            System.Diagnostics.Debug.WriteLine(cy.y_hat5);
+        }
+
         private cls_results clean_result_new(string result)
         {
             // replace
@@ -111,14 +126,16 @@ namespace hdb_dotnet_bootstrap
                 // remove 'yhat' string
                 string yhat_removed = result_array[x].Substring(0,result_array[x].Length - 6).Trim();
 
-                System.Diagnostics.Debug.WriteLine(yhat_removed);
+                //System.Diagnostics.Debug.WriteLine(yhat_removed);
 
                 if (x == 2) { cr.set_y_hat(yhat_removed); }
-                if (x == 3) { cr.set_y_hat1(yhat_removed); }
-                if (x == 4) { cr.set_y_hat2(yhat_removed); }
-                if (x == 5) { cr.set_y_hat3(yhat_removed); }
-                if (x == 6) { cr.set_y_hat4(result_array[x]); }
-
+                else if (x == 3) { cr.set_y_hat1(yhat_removed); }
+                else if (x == 4) { cr.set_y_hat2(yhat_removed); }
+                else if (x == 5) { cr.set_y_hat3(yhat_removed); }
+                else if (x == 6) { cr.set_y_hat4(yhat_removed); }
+                else if (x == 7) { cr.set_y_hat5(yhat_removed); }
+                else if (x == 8) { cr.set_y_hat6(this.ReplaceNewlines(result_array[x],Environment.NewLine)); }
+ 
             }
 
             System.Diagnostics.Debug.WriteLine(cr.get_y_hat());
@@ -126,10 +143,17 @@ namespace hdb_dotnet_bootstrap
             System.Diagnostics.Debug.WriteLine(cr.get_y_hat2());
             System.Diagnostics.Debug.WriteLine(cr.get_y_hat3());
             System.Diagnostics.Debug.WriteLine(cr.get_y_hat4());
-            
+            System.Diagnostics.Debug.WriteLine(cr.get_y_hat5());
+            System.Diagnostics.Debug.WriteLine(cr.get_y_hat6());
+
             return cr;
 
 
+        }
+
+        public string ReplaceNewlines(string blockOfText, string replaceWith)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(blockOfText.Trim(), @"\\n", replaceWith);
         }
 
         public cls_results flask_call(string input_str)
@@ -169,6 +193,7 @@ namespace hdb_dotnet_bootstrap
             }
 
             //cls_results cr = this.clean_result_new(result);
+            //this.clean_result_new_2(result);
 
             return this.clean_result_new(result); //result;
 
